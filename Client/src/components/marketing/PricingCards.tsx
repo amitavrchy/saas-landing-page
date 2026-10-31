@@ -63,12 +63,37 @@ const TIERS = [
 ];
 
 const COMPARISON = [
-  { feature: "Active cycles", starter: "2", team: "Unlimited", enterprise: "Unlimited" },
-  { feature: "AI triage", starter: "—", team: "Included", enterprise: "Included + custom models" },
-  { feature: "Automations", starter: "3", team: "Unlimited", enterprise: "Unlimited" },
+  {
+    feature: "Active cycles",
+    starter: "2",
+    team: "Unlimited",
+    enterprise: "Unlimited",
+  },
+  {
+    feature: "AI triage",
+    starter: "—",
+    team: "Included",
+    enterprise: "Included + custom models",
+  },
+  {
+    feature: "Automations",
+    starter: "3",
+    team: "Unlimited",
+    enterprise: "Unlimited",
+  },
   { feature: "SSO", starter: "—", team: "—", enterprise: "SAML / OIDC" },
-  { feature: "Audit log", starter: "—", team: "7 days", enterprise: "1 year +" },
-  { feature: "Support", starter: "Email", team: "Chat", enterprise: "Dedicated" },
+  {
+    feature: "Audit log",
+    starter: "—",
+    team: "7 days",
+    enterprise: "1 year +",
+  },
+  {
+    feature: "Support",
+    starter: "Email",
+    team: "Chat",
+    enterprise: "Dedicated",
+  },
 ];
 
 export function PricingCards() {
@@ -90,7 +115,9 @@ export function PricingCards() {
             onClick={() => dispatch(setPricingYearly(false))}
             className={cn(
               "rounded-lg px-4 py-2 text-sm transition-all duration-200",
-              !yearly ? "bg-surface-2 text-text shadow-[inset_0_0_0_1px_var(--border)]" : "text-muted",
+              !yearly
+                ? "bg-surface-2 text-text shadow-[inset_0_0_0_1px_var(--border)]"
+                : "text-muted",
             )}
           >
             Monthly
@@ -100,14 +127,16 @@ export function PricingCards() {
             onClick={() => dispatch(setPricingYearly(true))}
             className={cn(
               "rounded-lg px-4 py-2 text-sm transition-all duration-200",
-              yearly ? "bg-surface-2 text-text shadow-[inset_0_0_0_1px_var(--border)]" : "text-muted",
+              yearly
+                ? "bg-surface-2 text-text shadow-[inset_0_0_0_1px_var(--border)]"
+                : "text-muted",
             )}
           >
             Annual
-            <span className="ml-1.5 text-[11px] text-success">−20%</span>
+            <span className="ml-1.5 text-[14px] text-success">−20%</span>
           </button>
         </div>
-        <p className="font-mono text-[12px] text-muted">
+        <p className="font-mono text-[14px] text-muted">
           Seat math: Team @ {priceLabel(29)}
           {yearly ? "/mo billed yearly" : "/mo"} · 10 seats = $
           {yearly ? Math.round(29 * 0.8 * 10) : 29 * 10}
@@ -121,7 +150,11 @@ export function PricingCards() {
             key={tier.id}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            transition={{
+              delay: i * 0.08,
+              duration: 0.45,
+              ease: [0.16, 1, 0.3, 1],
+            }}
             className={cn(
               "relative flex flex-col rounded-2xl border p-6",
               tier.featured
@@ -130,11 +163,11 @@ export function PricingCards() {
             )}
           >
             {tier.featured && (
-              <span className="absolute -top-3 left-6 rounded-md bg-accent px-2 py-0.5 text-[11px] font-medium text-white">
+              <span className="absolute -top-3 left-6 rounded-md bg-accent px-2 py-0.5 text-[14px] font-medium text-bg">
                 Most popular
               </span>
             )}
-            <p className="text-[13px] text-muted">{tier.icp}</p>
+            <p className="text-[14px] text-muted">{tier.icp}</p>
             <h3 className="mt-1 text-xl font-semibold">{tier.name}</h3>
             <div className="mt-4 flex items-baseline gap-1">
               <motion.span
@@ -149,12 +182,12 @@ export function PricingCards() {
                 <span className="text-sm text-muted">/seat/mo</span>
               )}
             </div>
-            <p className="mt-3 text-[13px] leading-relaxed text-muted">
+            <p className="mt-3 text-[14px] leading-relaxed text-muted">
               {tier.blurb}
             </p>
             <ul className="mt-6 flex-1 space-y-2.5">
               {tier.features.map((f) => (
-                <li key={f} className="flex gap-2 text-[13px]">
+                <li key={f} className="flex gap-2 text-[14px]">
                   <Check className="mt-0.5 size-3.5 shrink-0 text-success" />
                   {f}
                 </li>
@@ -177,8 +210,10 @@ export function PricingCards() {
       </div>
 
       <div className="mt-20 overflow-x-auto">
-        <h3 className="mb-6 text-center text-lg font-semibold">Compare plans</h3>
-        <table className="w-full min-w-[640px] border-collapse text-left text-[13px]">
+        <h3 className="mb-6 text-center text-lg font-semibold">
+          Compare plans
+        </h3>
+        <table className="w-full min-w-[640px] border-collapse text-left text-[14px]">
           <thead>
             <tr className="border-b border-border">
               <th className="py-3 pr-4 font-medium text-muted">Feature</th>

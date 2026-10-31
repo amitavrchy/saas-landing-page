@@ -18,12 +18,12 @@ export default function LoginPage() {
           Orbit
         </Link>
         <h1 className="mt-6 text-center text-xl font-semibold">Welcome back</h1>
-        <p className="mt-2 text-center text-[13px] text-muted">
+        <p className="mt-2 text-center text-[14px] text-muted">
           Auth wiring lands with the Nest JWT endpoints.
         </p>
         <form className="mt-8 space-y-4">
           <div>
-            <label htmlFor="email" className="text-[13px] font-medium">
+            <label htmlFor="email" className="text-[14px] font-medium">
               Email
             </label>
             <input
@@ -34,7 +34,7 @@ export default function LoginPage() {
             />
           </div>
           <div>
-            <label htmlFor="password" className="text-[13px] font-medium">
+            <label htmlFor="password" className="text-[14px] font-medium">
               Password
             </label>
             <input
@@ -51,7 +51,7 @@ export default function LoginPage() {
             Log in
           </button>
         </form>
-        <p className="mt-6 text-center text-[13px] text-muted">
+        <p className="mt-6 text-center text-[14px] text-muted">
           No account?{" "}
           <Link href="/signup" className="text-text hover:underline">
             Start free

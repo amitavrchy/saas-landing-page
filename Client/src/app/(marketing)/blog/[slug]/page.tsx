@@ -39,7 +39,7 @@ export default async function BlogPostPage({
         <div className="relative mx-auto max-w-[720px] px-6 pt-16 pb-10 sm:pt-24">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-[13px] text-muted hover:text-text"
+            className="inline-flex items-center gap-1.5 text-[14px] text-muted hover:text-text"
           >
             <ArrowLeft className="size-3.5" />
             Blog
@@ -48,7 +48,7 @@ export default async function BlogPostPage({
             {post.tags.map((t) => (
               <span
                 key={t}
-                className="rounded-md bg-surface px-2 py-0.5 text-[11px] text-muted ring-1 ring-border"
+                className="rounded-md bg-surface px-2 py-0.5 text-[14px] text-muted ring-1 ring-border"
               >
                 {t}
               </span>

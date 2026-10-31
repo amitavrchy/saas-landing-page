@@ -17,12 +17,12 @@ export function PageHero({
     <section className="relative overflow-hidden hero-aurora pt-20 pb-12 sm:pt-28 sm:pb-16">
       <div className="pointer-events-none absolute inset-0 grid-fade opacity-40" />
       <div className="noise pointer-events-none absolute inset-0" />
-      <div className="relative mx-auto max-w-[1120px] px-6">
+      <div className="page-container relative">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease }}
-          className="text-[12px] font-medium uppercase tracking-[0.14em] text-accent"
+          className="text-[14px] font-medium uppercase tracking-[0.14em] text-accent"
         >
           {eyebrow}
         </motion.p>

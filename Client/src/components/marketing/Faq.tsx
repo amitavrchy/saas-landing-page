@@ -6,7 +6,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { SectionHeading } from "./SectionHeading";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const FAQS = [
   {
@@ -37,7 +38,7 @@ const FAQS = [
 
 export function Faq({
   items = FAQS,
-  heading = "Frequently asked questions",
+  heading = "A few things, cleared up.",
 }: {
   items?: { q: string; a: string }[];
   heading?: string;
@@ -53,14 +54,26 @@ export function Faq({
   };
 
   return (
-    <section className="section-pad border-t border-border/50" aria-labelledby="faq-heading">
+    <section className="faq-section section-pad" aria-labelledby="faq-heading">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="mx-auto max-w-[1120px] px-6">
-        <SectionHeading id="faq-heading" title={heading} />
-        <div className="mx-auto max-w-2xl">
+      <div className="page-container faq-layout">
+        <div className="faq-copy">
+          <span className="eyebrow">GOOD QUESTIONS. CLEAR ANSWERS.</span>
+          <h2 id="faq-heading" className="section-display">
+            {heading}
+          </h2>
+          <p>
+            A little clarity before your next big move. Here are the things
+            teams ask us.
+          </p>
+          <Link href="/docs" className="text-link">
+            Find more in our docs <ArrowRight size={13} />
+          </Link>
+        </div>
+        <div className="faq-list">
           <Accordion type="single" collapsible className="w-full">
             {items.map((item, i) => (
               <AccordionItem key={item.q} value={`item-${i}`}>

@@ -21,7 +21,7 @@ export default function FeaturesPage() {
       />
 
       <section className="pb-24">
-        <div className="mx-auto grid max-w-[1120px] gap-4 px-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="page-container grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
             <Link
               key={f.slug}
@@ -29,7 +29,7 @@ export default function FeaturesPage() {
               className="group flex flex-col rounded-2xl border border-border bg-surface p-6 transition-all hover:border-accent/40 hover:bg-surface-2/70"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-accent">
+                <span className="text-[14px] font-medium uppercase tracking-[0.14em] text-accent">
                   {f.eyebrow}
                 </span>
                 <ArrowUpRight className="size-4 text-muted opacity-0 transition-opacity group-hover:opacity-100" />
@@ -38,7 +38,7 @@ export default function FeaturesPage() {
               <p className="mt-2 flex-1 text-[14px] leading-relaxed text-muted">
                 {f.summary}
               </p>
-              <p className="mt-6 font-mono text-[12px] text-muted-2">
+              <p className="mt-6 font-mono text-[14px] text-muted-2">
                 {f.metric.value}{" "}
                 <span className="text-muted">· {f.metric.label}</span>
               </p>

@@ -18,12 +18,12 @@ export default function SignupPage() {
           Orbit
         </Link>
         <h1 className="mt-6 text-center text-xl font-semibold">Start free</h1>
-        <p className="mt-2 text-center text-[13px] text-muted">
+        <p className="mt-2 text-center text-[14px] text-muted">
           Creates your user, workspace, and membership once the API is live.
         </p>
         <form className="mt-8 space-y-4">
           <div>
-            <label htmlFor="name" className="text-[13px] font-medium">
+            <label htmlFor="name" className="text-[14px] font-medium">
               Name
             </label>
             <input
@@ -33,7 +33,7 @@ export default function SignupPage() {
             />
           </div>
           <div>
-            <label htmlFor="email" className="text-[13px] font-medium">
+            <label htmlFor="email" className="text-[14px] font-medium">
               Work email
             </label>
             <input
@@ -44,7 +44,7 @@ export default function SignupPage() {
             />
           </div>
           <div>
-            <label htmlFor="password" className="text-[13px] font-medium">
+            <label htmlFor="password" className="text-[14px] font-medium">
               Password
             </label>
             <input
@@ -61,7 +61,7 @@ export default function SignupPage() {
             Create workspace
           </button>
         </form>
-        <p className="mt-6 text-center text-[13px] text-muted">
+        <p className="mt-6 text-center text-[14px] text-muted">
           Already have an account?{" "}
           <Link href="/login" className="text-text hover:underline">
             Log in

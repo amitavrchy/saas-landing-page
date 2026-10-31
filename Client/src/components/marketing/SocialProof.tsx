@@ -11,7 +11,7 @@ const STATS = [
 export function SocialProof() {
   return (
     <section className="section-pad !pt-8">
-      <div className="mx-auto max-w-[1120px] px-6">
+      <div className="page-container">
         <motion.blockquote
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -25,14 +25,14 @@ export function SocialProof() {
             roadmap finally matches what ships.”
           </p>
           <footer className="relative mt-10 flex flex-col items-center gap-3">
-            <div className="flex size-11 items-center justify-center rounded-full bg-surface-2 font-mono text-xs text-muted ring-1 ring-border">
+            <div className="flex size-11 items-center justify-center rounded-full bg-surface-2 font-mono text-sm text-muted ring-1 ring-border">
               RC
             </div>
             <div>
               <cite className="not-italic text-sm font-medium text-text">
                 Riley Chen
               </cite>
-              <p className="text-[13px] text-muted">VP Product, Meridian</p>
+              <p className="text-[14px] text-muted">VP Product, Meridian</p>
             </div>
           </footer>
         </motion.blockquote>
@@ -44,13 +44,17 @@ export function SocialProof() {
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                delay: i * 0.08,
+                duration: 0.45,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="text-center"
             >
               <p className="font-mono text-2xl tracking-tight text-text sm:text-3xl">
                 {s.value}
               </p>
-              <p className="mt-1.5 text-[12px] text-muted">{s.label}</p>
+              <p className="mt-1.5 text-[14px] text-muted">{s.label}</p>
             </motion.div>
           ))}
         </div>

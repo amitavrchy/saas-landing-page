@@ -31,13 +31,13 @@ export default function ChangelogPage() {
               <li key={entry.version} className="relative pb-12 pl-8 last:pb-0">
                 <span className="absolute -left-[5px] top-1.5 size-2.5 rounded-full bg-accent ring-4 ring-bg" />
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-mono text-[13px] text-accent">{entry.version}</span>
-                  <span className="text-[12px] text-muted-2">{entry.date}</span>
+                  <span className="font-mono text-[14px] text-accent">{entry.version}</span>
+                  <span className="text-[14px] text-muted-2">{entry.date}</span>
                   {entry.tags.map((t) => (
                     <span
                       key={t}
                       className={cn(
-                        "rounded-md px-1.5 py-0.5 text-[10px] font-medium",
+                        "rounded-md px-1.5 py-0.5 text-[14px] font-medium",
                         tagStyle[t],
                       )}
                     >

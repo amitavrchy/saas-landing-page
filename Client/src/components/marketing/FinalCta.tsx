@@ -1,53 +1,34 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-
+import { OrbitLogo } from "./OrbitLogo";
 export function FinalCta() {
   return (
-    <section className="relative overflow-hidden section-pad">
-      <div className="pointer-events-none absolute inset-0 hero-aurora opacity-80" />
-      <div className="pointer-events-none absolute inset-0 grid-fade opacity-30" />
-      <div className="relative mx-auto max-w-[1120px] px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="shine-border mx-auto max-w-3xl rounded-3xl border border-border bg-surface/80 px-8 py-14 text-center glass sm:px-12"
-        >
-          <p className="text-[12px] font-medium uppercase tracking-[0.14em] text-accent">
-            Orbit
-          </p>
-          <h2 className="display mt-4 text-[clamp(1.75rem,4vw,2.75rem)]">
-            Ready to ship without the chaos?
-          </h2>
-          <p className="lead mx-auto mt-4 max-w-md">
-            Join product teams who replaced status theater with Orbit. Free to
-            start — upgrade when you&apos;re ready.
-          </p>
-          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/signup"
-              className={cn(
-                buttonVariants({ variant: "primary", size: "lg" }),
-                "shadow-[0_0_40px_-8px_rgba(94,106,210,0.55)]",
-              )}
-            >
-              Start free
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/pricing"
-              className={cn(buttonVariants({ variant: "secondary", size: "lg" }))}
-            >
-              See pricing
-            </Link>
+    <section className="final-cta-section" aria-labelledby="final-cta-heading">
+      <div className="page-container">
+        <div className="final-cta">
+          <div className="cta-orbits" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+            <OrbitLogo markOnly />
           </div>
-        </motion.div>
+          <div className="final-cta-copy">
+            <span className="eyebrow">MAKE ROOM FOR YOUR BEST WORK.</span>
+            <h2 id="final-cta-heading">
+              Big things start
+              <br />
+              with a little orbit.
+            </h2>
+            <p>Your team. Your next chapter. All in one place.</p>
+            <Link href="/signup" className="cta-dark-button">
+              Find your flow. Start free. <ArrowRight size={17} />
+            </Link>
+            <span className="cta-note">
+              No credit card. No complicated setup. Just possibility.
+            </span>
+          </div>
+          <span className="cta-bottom-label">LESS CHAOS. MORE SHIPPING. ↗</span>
+        </div>
       </div>
     </section>
   );

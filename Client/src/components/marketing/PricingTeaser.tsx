@@ -1,108 +1,111 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
-import { SectionHeading } from "./SectionHeading";
 import { cn } from "@/lib/utils";
-
 const TIERS = [
   {
     name: "Starter",
-    icp: "For solo PMs",
+    audience: "For solo PMs & small crews",
     price: "$12",
-    blurb: "Cycles + issues for one workspace.",
-    perks: ["Unlimited issues", "2 cycles ahead", "Slack sync"],
+    body: "The essentials for turning good ideas into shipped work.",
+    perks: [
+      "Unlimited issues",
+      "Cycle planning & board views",
+      "Slack & GitHub sync",
+      "Up to 5 seats",
+    ],
   },
   {
     name: "Team",
-    icp: "For product teams",
+    audience: "For teams finding their momentum",
     price: "$29",
-    blurb: "AI triage and automations that scale.",
-    perks: ["Everything in Starter", "AI triage", "Automations", "Views"],
+    body: "A shared space for ambitious teams, with a little extra intelligence.",
     featured: true,
+    perks: [
+      "Everything in Starter",
+      "AI triage & suggestions",
+      "Automations & digests",
+      "Custom views & roadmaps",
+    ],
   },
   {
     name: "Enterprise",
-    icp: "For orgs",
-    price: "Custom",
-    blurb: "SSO, audit logs, dedicated support.",
-    perks: ["SSO / SAML", "Audit log", "Priority support"],
+    audience: "For your next stage of growth",
+    price: "Let's talk",
+    body: "More control, thoughtful security, and support that knows your name.",
+    perks: [
+      "Everything in Team",
+      "SSO / SAML",
+      "Audit logs",
+      "Dedicated success manager",
+    ],
   },
 ];
-
 export function PricingTeaser() {
   return (
     <section className="section-pad" aria-labelledby="pricing-teaser-heading">
-      <div className="mx-auto max-w-[1120px] px-6">
-        <SectionHeading
-          id="pricing-teaser-heading"
-          eyebrow="Pricing"
-          title="Transparent pricing. Named for how you work."
-          description="Start free. Upgrade when the team outgrows the chaos. Annual saves 20%."
-        />
-
-        <div className="grid gap-4 md:grid-cols-3">
-          {TIERS.map((tier, i) => (
-            <motion.div
+      <div className="page-container">
+        <div className="section-topline">
+          <span className="eyebrow">
+            <span /> ROOM TO GROW
+          </span>
+          <span className="section-index">04 / SIMPLE BY DESIGN</span>
+        </div>
+        <div className="pricing-heading-row">
+          <h2 id="pricing-teaser-heading" className="section-display">
+            Small beginnings.
+            <br />
+            <span>Unlimited possibilities.</span>
+          </h2>
+          <p>
+            Start free with up to 3 people.
+            <br />
+            Find your rhythm. Grow at your own pace.
+          </p>
+        </div>
+        <div className="pricing-grid">
+          {TIERS.map((tier) => (
+            <div
               key={tier.name}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.07, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className={cn(
-                "relative flex flex-col rounded-2xl border p-6",
-                tier.featured
-                  ? "border-accent/45 bg-accent/5 shadow-[0_0_60px_-20px_rgba(94,106,210,0.45)]"
-                  : "border-border bg-surface",
-              )}
+              className={cn("price-card", tier.featured && "featured")}
             >
-              {tier.featured && (
-                <span className="absolute -top-3 left-6 rounded-md bg-accent px-2.5 py-0.5 text-[11px] font-medium text-white">
-                  Most popular
-                </span>
-              )}
-              <p className="text-[13px] text-muted">{tier.icp}</p>
-              <h3 className="mt-1 text-lg font-semibold">{tier.name}</h3>
-              <p className="mt-5 font-mono text-3xl tracking-tight">
+              <h3 className="price-name">
+                {tier.name}
+                {tier.featured && <span>THE TEAM FAVORITE</span>}
+              </h3>
+              <p className="price-audience">{tier.audience}</p>
+              <p className="price-number">
                 {tier.price}
-                {tier.price !== "Custom" && (
-                  <span className="text-sm text-muted"> /seat/mo</span>
-                )}
+                {tier.name !== "Enterprise" && <span> / member / month</span>}
               </p>
-              <p className="mt-2 text-[13px] text-muted">{tier.blurb}</p>
-              <ul className="mt-6 flex-1 space-y-2.5">
-                {tier.perks.map((p) => (
-                  <li key={p} className="flex items-center gap-2 text-[13px]">
-                    <Check className="size-3.5 text-success" />
-                    {p}
+              <p>{tier.body}</p>
+              <Link
+                href={tier.name === "Enterprise" ? "/pricing" : "/signup"}
+                className={buttonVariants({
+                  variant: tier.featured ? "primary" : "outline",
+                })}
+              >
+                {tier.name === "Enterprise"
+                  ? "Explore Enterprise"
+                  : "Start your free trial"}
+                <ArrowRight size={13} />
+              </Link>
+              <div className="price-divider" />
+              <ul>
+                {tier.perks.map((perk) => (
+                  <li key={perk}>
+                    <Check size={12} />
+                    {perk}
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/pricing"
-                className={cn(
-                  buttonVariants({
-                    variant: tier.featured ? "primary" : "secondary",
-                    size: "md",
-                  }),
-                  "mt-7 w-full",
-                )}
-              >
-                {tier.name === "Enterprise" ? "Talk to sales" : "Get started"}
-              </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
-
-        <div className="mt-10 text-center">
-          <Link
-            href="/pricing"
-            className="inline-flex items-center gap-1.5 text-[13px] text-muted transition-colors hover:text-text"
-          >
-            Compare all features &amp; seat math
-            <ArrowRight className="size-3.5" />
+        <div className="pricing-bottom">
+          <span>Monthly pricing shown. Annual billing saves 20%.</span>
+          <Link href="/pricing">
+            All the details. No surprises. <ArrowRight size={12} />
           </Link>
         </div>
       </div>

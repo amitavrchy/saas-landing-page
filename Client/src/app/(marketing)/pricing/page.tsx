@@ -39,7 +39,7 @@ export default function PricingPage() {
       />
 
       <section className="pb-16">
-        <div className="mx-auto max-w-[1120px] px-6">
+        <div className="page-container">
           <PricingCards />
         </div>
       </section>

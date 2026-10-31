@@ -1,44 +1,42 @@
 "use client";
-
 import Link from "next/link";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { ArrowRight, Check, LoaderCircle } from "lucide-react";
 import { subscribeNewsletter } from "@/lib/api";
-import { Button } from "@/components/ui/button";
-
+import { OrbitLogo } from "./OrbitLogo";
 const COLUMNS = [
   {
     title: "Product",
     links: [
-      { href: "/features", label: "Features" },
+      { href: "/features", label: "Overview" },
+      { href: "/features/ai-triage", label: "Orbit AI" },
+      { href: "/features/integrations", label: "Integrations" },
       { href: "/pricing", label: "Pricing" },
-      { href: "/changelog", label: "Changelog" },
-      { href: "/docs", label: "Docs" },
     ],
   },
   {
-    title: "Company",
+    title: "Explore",
     links: [
-      { href: "/customers", label: "Customers" },
-      { href: "/blog", label: "Blog" },
-      { href: "/#", label: "Careers" },
-      { href: "/#", label: "Contact" },
+      { href: "/customers", label: "Customer stories" },
+      { href: "/blog", label: "The Orbit blog" },
+      { href: "/changelog", label: "What's new" },
+      { href: "/#demo", label: "Try the sandbox" },
     ],
   },
   {
-    title: "Legal",
+    title: "Resources",
     links: [
-      { href: "/#", label: "Privacy" },
-      { href: "/#", label: "Terms" },
-      { href: "/#", label: "Security" },
+      { href: "/docs", label: "Documentation" },
+      { href: "/docs/get-started/quickstart", label: "Getting started" },
+      { href: "/login", label: "Your workspace" },
+      { href: "/signup", label: "Join Orbit" },
     ],
   },
 ];
-
 export function SiteFooter() {
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
-
   const mutation = useMutation({
     mutationFn: subscribeNewsletter,
     onSuccess: () => {
@@ -46,29 +44,24 @@ export function SiteFooter() {
       setEmail("");
     },
   });
-
   return (
-    <footer className="border-t border-border bg-bg">
-      <div className="mx-auto max-w-[1120px] px-6 py-16">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div>
-            <Link href="/" className="flex items-center gap-2.5 font-semibold">
-              <span className="relative flex size-7 items-center justify-center rounded-lg bg-accent/20 ring-1 ring-accent/40">
-                <span className="size-2.5 rounded-full bg-accent" />
-              </span>
-              <span>Orbit</span>
+    <footer className="site-footer">
+      <div className="page-container">
+        <div className="footer-grid">
+          <div className="footer-brand">
+            <Link href="/" aria-label="Orbit home">
+              <OrbitLogo />
             </Link>
-            <p className="mt-4 max-w-xs text-[13px] leading-relaxed text-muted">
-              AI-assisted project ops for product teams who ship. Plan cycles,
-              triage issues, and keep the roadmap honest.
+            <p>
+              A calmer workspace.
+              <br />
+              For teams going places.
             </p>
-
             <form
-              className="mt-6 flex max-w-sm gap-2"
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (!email) return;
-                mutation.mutate(email);
+              className="footer-newsletter"
+              onSubmit={(event) => {
+                event.preventDefault();
+                if (email.trim()) mutation.mutate(email.trim());
               }}
             >
               <label htmlFor="footer-email" className="sr-only">
@@ -78,44 +71,64 @@ export function SiteFooter() {
                 id="footer-email"
                 type="email"
                 required
+                placeholder="Good things in your inbox. Your email?"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Work email"
-                className="h-10 flex-1 rounded-lg border border-border bg-surface px-3 text-sm text-text placeholder:text-muted/70 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                  setDone(false);
+                }}
+                autoComplete="email"
               />
-              <Button type="submit" size="sm" disabled={mutation.isPending}>
-                {done ? "Joined" : "Subscribe"}
-              </Button>
+              <button
+                type="submit"
+                aria-label="Subscribe to newsletter"
+                disabled={mutation.isPending}
+              >
+                {mutation.isPending ? (
+                  <LoaderCircle size={16} className="animate-spin" />
+                ) : done ? (
+                  <Check size={16} />
+                ) : (
+                  <ArrowRight size={16} />
+                )}
+              </button>
             </form>
-            {mutation.isError && (
-              <p className="mt-2 text-xs text-danger">
-                Couldn&apos;t subscribe — try again later.
-              </p>
-            )}
+            <div aria-live="polite">
+              {done && (
+                <p className="newsletter-status">
+                  You&apos;re in. A little more Orbit, coming your way.
+                </p>
+              )}
+              {mutation.isError && (
+                <p className="newsletter-status newsletter-error">
+                  Couldn&apos;t subscribe. Please try again later.
+                </p>
+              )}
+            </div>
           </div>
-
-          {COLUMNS.map((col) => (
-            <div key={col.title}>
-              <p className="text-[13px] font-medium text-text">{col.title}</p>
-              <ul className="mt-4 space-y-2.5">
-                {col.links.map((link) => (
+          {COLUMNS.map((column) => (
+            <div className="footer-column" key={column.title}>
+              <h3>{column.title}</h3>
+              <ul>
+                {column.links.map((link) => (
                   <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-[13px] text-muted transition-colors hover:text-text"
-                    >
-                      {link.label}
-                    </Link>
+                    <Link href={link.href}>{link.label}</Link>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-
-        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-8 text-[12px] text-muted sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} Orbit Labs. All rights reserved.</p>
-          <p className="font-mono">Ship the roadmap without the chaos.</p>
+        <div className="footer-wordmark" aria-hidden="true">
+          orbit<span>.</span>
+        </div>
+        <div className="footer-bottom">
+          <span>
+            © {new Date().getFullYear()} Orbit. Made for the work ahead.
+          </span>
+          <span>
+            <span className="status-dot" /> Less chaos. More shipping.
+          </span>
         </div>
       </div>
     </footer>

@@ -1,129 +1,94 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { ArrowRight, Menu, X } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { OrbitLogo } from "./OrbitLogo";
 import { cn } from "@/lib/utils";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setMobileNavOpen, toggleMobileNav } from "@/features/ui/uiSlice";
 
 const NAV = [
-  { href: "/features", label: "Features" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/features", label: "Product" },
   { href: "/customers", label: "Customers" },
-  { href: "/blog", label: "Blog" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/blog", label: "Resources" },
   { href: "/changelog", label: "Changelog" },
-  { href: "/docs", label: "Docs" },
 ];
-
-function Logo({ className }: { className?: string }) {
-  return (
-    <Link
-      href="/"
-      className={cn("flex items-center gap-2.5 font-semibold tracking-tight", className)}
-    >
-      <span className="relative flex size-7 items-center justify-center rounded-lg bg-accent/20 ring-1 ring-accent/40">
-        <span className="size-2.5 rounded-full bg-accent shadow-[0_0_12px_var(--accent)]" />
-      </span>
-      <span className="text-[15px] text-text">Orbit</span>
-    </Link>
-  );
-}
-
 export function SiteHeader() {
   const pathname = usePathname();
-  const open = useAppSelector((s) => s.ui.mobileNavOpen);
+  const open = useAppSelector((state) => state.ui.mobileNavOpen);
   const dispatch = useAppDispatch();
-
   return (
-    <header className="sticky top-0 z-50 border-b border-border/50 bg-bg/65 backdrop-blur-2xl">
-      <div className="mx-auto flex h-14 max-w-[1120px] items-center justify-between px-6">
-        <Logo />
-
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
+    <header className="site-header">
+      <div className="page-container header-inner">
+        <Link
+          href="/"
+          aria-label="Orbit home"
+          onClick={() => dispatch(setMobileNavOpen(false))}
+        >
+          <OrbitLogo />
+        </Link>
+        <nav className="desktop-nav" aria-label="Primary">
           {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={cn(
-                "rounded-lg px-3 py-1.5 text-[13px] text-muted transition-colors hover:text-text",
-                pathname.startsWith(item.href) && "text-text",
-              )}
+              aria-current={pathname.startsWith(item.href) ? "page" : undefined}
+              className={cn(pathname.startsWith(item.href) && "current")}
             >
               {item.label}
             </Link>
           ))}
         </nav>
-
-        <div className="hidden items-center gap-2 md:flex">
-          <Link
-            href="/login"
-            className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
-          >
+        <div className="header-actions">
+          <Link href="/login" className="header-login">
             Log in
           </Link>
-          <Link
-            href="/signup"
-            className={cn(buttonVariants({ variant: "primary", size: "sm" }))}
-          >
-            Start free
+          <Link href="/signup" className={buttonVariants({ size: "sm" })}>
+            Get started <ArrowRight size={13} />
           </Link>
         </div>
-
-        <Button
-          variant="ghost"
-          size="sm"
-          className="md:hidden"
+        <button
+          type="button"
+          className="mobile-menu-button"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls="mobile-navigation"
           onClick={() => dispatch(toggleMobileNav())}
         >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </Button>
-      </div>
-
-      <AnimatePresence>
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
         {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden border-t border-border md:hidden"
+          <nav
+            id="mobile-navigation"
+            className="mobile-navigation"
+            aria-label="Mobile"
           >
-            <nav className="flex flex-col gap-1 px-6 py-4" aria-label="Mobile">
-              {NAV.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => dispatch(setMobileNavOpen(false))}
-                  className="rounded-lg px-3 py-2.5 text-sm text-muted hover:bg-surface-2 hover:text-text"
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <div className="mt-3 flex flex-col gap-2 border-t border-border pt-4">
-                <Link
-                  href="/login"
-                  onClick={() => dispatch(setMobileNavOpen(false))}
-                  className={cn(buttonVariants({ variant: "secondary", size: "md" }), "w-full")}
-                >
-                  Log in
-                </Link>
-                <Link
-                  href="/signup"
-                  onClick={() => dispatch(setMobileNavOpen(false))}
-                  className={cn(buttonVariants({ variant: "primary", size: "md" }), "w-full")}
-                >
-                  Start free
-                </Link>
-              </div>
-            </nav>
-          </motion.div>
+            {[
+              ...NAV,
+              { href: "/docs", label: "Documentation" },
+              { href: "/login", label: "Log in" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => dispatch(setMobileNavOpen(false))}
+              >
+                {item.label}
+                <ArrowRight size={14} />
+              </Link>
+            ))}
+            <Link
+              href="/signup"
+              className={buttonVariants({ size: "lg" })}
+              onClick={() => dispatch(setMobileNavOpen(false))}
+            >
+              Get started for free <ArrowRight size={15} />
+            </Link>
+          </nav>
         )}
-      </AnimatePresence>
+      </div>
     </header>
   );
 }

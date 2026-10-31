@@ -7,7 +7,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-accent text-white hover:bg-accent-bright shadow-[0_0_0_1px_rgba(94,106,210,0.45),0_1px_2px_rgba(0,0,0,0.45)]",
+          "bg-accent text-[#203017] hover:bg-accent-bright shadow-[0_1px_2px_rgba(0,0,0,0.15)]",
         secondary:
           "bg-surface-2/90 text-text border border-border hover:bg-surface-3 hover:border-border-strong",
         ghost: "text-muted hover:text-text hover:bg-surface-2",
@@ -15,7 +15,7 @@ const buttonVariants = cva(
           "border border-border text-text hover:bg-surface-2 hover:border-border-strong",
       },
       size: {
-        sm: "h-8 px-3 text-[13px] rounded-lg",
+        sm: "h-8 px-3 text-[14px] rounded-lg",
         md: "h-10 px-4 text-sm rounded-lg",
         lg: "h-12 px-6 text-[15px] rounded-xl",
       },

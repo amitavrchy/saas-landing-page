@@ -39,13 +39,13 @@ export default async function CustomerStoryPage({
         <div className="relative mx-auto max-w-[800px] px-6 pt-16 pb-12 sm:pt-24">
           <Link
             href="/customers"
-            className="inline-flex items-center gap-1.5 text-[13px] text-muted hover:text-text"
+            className="inline-flex items-center gap-1.5 text-[14px] text-muted hover:text-text"
           >
             <ArrowLeft className="size-3.5" />
             All customers
           </Link>
 
-          <p className="mt-8 text-[12px] font-medium uppercase tracking-[0.14em] text-accent">
+          <p className="mt-8 text-[14px] font-medium uppercase tracking-[0.14em] text-accent">
             {c.industry} · {c.size}
           </p>
           <h1 className="display mt-4 text-[clamp(2rem,4vw,3rem)]">{c.company}</h1>
@@ -63,7 +63,7 @@ export default async function CustomerStoryPage({
                 className="rounded-xl border border-border bg-surface/80 px-4 py-4 text-center glass"
               >
                 <p className="font-mono text-2xl tracking-tight">{r.value}</p>
-                <p className="mt-1 text-[11px] text-muted">{r.label}</p>
+                <p className="mt-1 text-[14px] text-muted">{r.label}</p>
               </div>
             ))}
           </div>
