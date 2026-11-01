@@ -1,6 +1,6 @@
 # SaaS Landing Page — Project Build Spec (Agent-Ready)
 
-> Stack: Next.js Client (Redux Toolkit, React Query, RHF/zod, framer-motion, lucide, **radix accordion/dialog**, **embla-carousel**). NestJS + Prisma + Postgres + JWT. Optional adds: `cmdk`, `class-variance-authority`, `@radix-ui/react-tabs`, `@radix-ui/react-navigation-menu`, `recharts` (usage charts in dashboard), `resend` or nodemailer on server for waitlist.
+> Stack: Next.js frontend (Redux Toolkit, React Query, RHF/zod, framer-motion, lucide, **radix accordion/dialog**, **embla-carousel**). NestJS + Prisma + Postgres + JWT. Optional adds: `cmdk`, `class-variance-authority`, `@radix-ui/react-tabs`, `@radix-ui/react-navigation-menu`, `recharts` (usage charts in dashboard), `resend` or nodemailer on server for waitlist.
 
 ---
 
@@ -132,7 +132,7 @@ Waitlist capture if “coming soon” mode flag.
 ## 6. Frontend Architecture
 
 ```
-Client/src/
+frontend/src/
   app/(marketing)/ page, pricing, features, blog, customers, changelog
   app/(auth)/ login, signup
   app/(app)/ app/...
