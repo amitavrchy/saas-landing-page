@@ -1,106 +1,101 @@
 # Orbit
 
-A marketing site and API for Orbit, the project workspace that keeps cycles, issues, and shipping in one place.
+**Site:** [https://orbit-saas-162.netlify.app](https://orbit-saas-162.netlify.app)
 
-**Less chaos. More shipping.**
+**API:** [https://orbit-saas-api.onrender.com](https://orbit-saas-api.onrender.com)
 
-## Live demo
+Ship the roadmap without the chaos.
 
-> **TODO:** No public frontend or API URL is configured.
->
-> Checked and empty: the GitHub repository homepage field, this README before this rewrite, both `package.json` files, `netlify.toml`, `render.yaml`, `.env.example` files, and CORS / API base URLs in code. Those files only name local addresses (`http://localhost:3000` for the site, `http://localhost:4000` for the API) and the host products (Netlify, Render). They do not include a deployed URL.
-
-- **Frontend:** TODO — add the Netlify site URL here once the site is published.
-- **API:** TODO — add the Render service URL here once the service is published.
+Orbit is an AI-assisted project workspace for product teams: cycles, issues, and triage in one place, with a marketing site in front and a small API behind it.
 
 ## Overview
 
-Orbit is a dark, dense marketing site for a B2B project-ops product, with a small account flow and a NestJS API behind it. The site tells the product story (home, product, pricing, customers, blog, changelog, docs) and includes login and signup. The API stores users, waitlist and demo requests, newsletter subscribers, blog posts, and changelog entries in Postgres.
+The site is a dark, dense marketing experience for a B2B product called Orbit. It walks through the product (home, features, pricing, customers, blog, changelog, and docs) and includes login and signup screens. Copy and page content live in the Next.js app.
 
-The product promise on the homepage: bring projects, people, and priorities into one clear orbit.
+The API is a NestJS service on PostgreSQL. It registers users, opens a workspace and membership on signup, and stores waitlist entries, demo requests, newsletter subscribers, blog posts, and changelog entries. The footer newsletter on the site posts to that API. Login and signup screens are in the app; those forms are not submitted to the auth endpoints yet.
 
 ## Features
 
-- Homepage with a product-board mock, logo strip, feature story, pricing teaser, FAQ, and an in-page demo
-- Product pages for cycles, issues, views, automations, triage, and integrations
-- Pricing, customer stories, blog, changelog, and docs
+- Homepage with a product-board mock, logo strip, feature story, pricing teaser, FAQ, and an in-browser issue sandbox
+- Product pages for cycles, issues, views, automations, AI triage, and integrations
+- Pricing for Starter, Team, and Enterprise, with a monthly / annual toggle
+- Customer stories, blog, changelog, and docs
 - Login and signup screens
-- API for register, login, and the current user (JWT)
-- API for waitlist, newsletter signup, and demo requests
-- Public blog and changelog reads
-- `GET /health` for the Render health check
+- API: register, login, and the current user (JWT)
+- API: waitlist, newsletter, and demo requests
+- API: public blog and changelog reads
+- `GET /health` checks the process and the database
 
 ## Tech stack
 
-![Next.js](https://img.shields.io/badge/Next.js-16-111111?style=flat-square)
-![React](https://img.shields.io/badge/React-19-149ECA?style=flat-square)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38BDF8?style=flat-square)
-![NestJS](https://img.shields.io/badge/NestJS-12-E0234E?style=flat-square)
-![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?style=flat-square)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=flat-square)
+![Next.js](https://img.shields.io/badge/Next.js-16-111111?style=flat-square&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-19-149ECA?style=flat-square&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38BDF8?style=flat-square&logo=tailwindcss&logoColor=white)
+![NestJS](https://img.shields.io/badge/NestJS-12-E0234E?style=flat-square&logo=nestjs&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?style=flat-square&logo=prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
 
 | Layer | Stack |
 | --- | --- |
-| Frontend | Next.js 16, React 19, TypeScript, Tailwind CSS 4, Redux Toolkit, TanStack Query, React Hook Form, Zod, Framer Motion, Radix UI, Embla |
-| Backend | NestJS 12, Prisma 6, PostgreSQL, Passport JWT, class-validator |
-| Hosting | Netlify for the site. Render runs the API from `backend/Dockerfile.render`, with Postgres in that same container. |
+| Site | Next.js 16, React 19, TypeScript 5, Tailwind CSS 4, Redux Toolkit, TanStack Query, React Hook Form, Zod, Framer Motion, Radix UI, Embla |
+| API | NestJS 12, TypeScript 6, Prisma 6, PostgreSQL, Passport JWT, class-validator |
+| Hosting | Netlify serves the site from `Client`. Render runs the API from `Server/Dockerfile.render`, with Postgres in that same container. |
 
 ## Project structure
 
 ```
 .
-├── frontend/                 Next.js site
-│   ├── src/                  App routes, marketing UI, content, API client
-│   ├── public/
-│   ├── netlify.toml          Netlify build (used when base directory is frontend)
+├── Client/                 Next.js site
+│   ├── src/app/            Marketing, login, and signup routes
+│   ├── src/components/     Marketing UI and product mock
+│   ├── src/content/        Blog, changelog, customers, docs, features
+│   ├── src/lib/api.ts      Client for the API
 │   └── package.json
-├── backend/                  NestJS API
-│   ├── src/                  Auth, marketing, Prisma
-│   ├── prisma/               Schema, migrations, seed
-│   ├── Dockerfile            Image for a standalone API container
-│   ├── Dockerfile.render     API + Postgres image used by Render
-│   ├── docker-compose.yml    Local Postgres
+├── Server/                 NestJS API
+│   ├── src/                Auth, marketing, Prisma
+│   ├── prisma/             Schema, migrations, seed
+│   ├── Dockerfile          API image that expects Postgres elsewhere
+│   ├── Dockerfile.render   API + Postgres image used on Render
+│   ├── docker-compose.yml  Local Postgres
 │   └── package.json
-├── render.yaml               Render Blueprint (must stay at the repo root)
-├── PROJECT_SPEC.md           Original product and build spec
+├── netlify.toml            Netlify build (base directory: Client)
+├── render.yaml             Render Blueprint (repo root)
 └── README.md
 ```
 
-Repo-level files stay at the root: this README, `.gitignore`, `PROJECT_SPEC.md`, and `render.yaml`. Render only discovers a Blueprint named `render.yaml` at the repository root.
+`netlify.toml` and `render.yaml` stay at the repository root so the existing Netlify and Render services keep their current settings.
 
 ## Getting started
 
-Use Node.js 22 (the version pinned in `frontend/netlify.toml` and both Dockerfiles).
+Use Node.js 22. That is the version in `netlify.toml` and both Dockerfiles.
 
-### Frontend
+### Site (`Client`)
 
 ```bash
-cd frontend
+cd Client
 cp .env.example .env.local
 npm ci
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-Set `NEXT_PUBLIC_API_URL` in `.env.local`. The sample value is `http://localhost:4000`, which matches the API port. If the variable is missing, the client falls back to `http://localhost:3001`.
+`npm run dev` starts the Next.js dev server. Set `NEXT_PUBLIC_API_URL` in `.env.local` to the API origin. Copy the variable from `.env.example` and adjust it. If `NEXT_PUBLIC_API_URL` is unset, the client uses a built-in default that does not follow `PORT`.
 
 | Script | What it does |
 | --- | --- |
 | `npm run dev` | Dev server |
-| `npm run build` | Production build |
+| `npm run build` | Production build (includes the TypeScript check) |
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint |
 
-There is no separate typecheck script. `npm run build` runs the TypeScript check, and `npx tsc --noEmit` works on its own.
+`npx tsc --noEmit` typechecks without a production build. Run it after `npm run build` so Next.js has generated its route types.
 
-### Backend
+### API (`Server`)
 
 Postgres has to be up before the API will boot. Prisma connects on startup.
 
 ```bash
-cd backend
+cd Server
 cp .env.example .env
 docker compose up -d
 npm install
@@ -109,9 +104,17 @@ npx prisma migrate dev
 npm run start:dev
 ```
 
-The API listens on [http://localhost:4000](http://localhost:4000). Fill `JWT_SECRET` and `JWT_REFRESH_SECRET` (at least 32 characters each). `DATABASE_URL` in `.env.example` points at the Compose database `saas_landing_page` on port 5432. `npx prisma generate` reads that variable, so `.env` has to exist first.
+`npm ci` fails on the current lockfile (`magicast@0.3.5` is missing). Use `npm install` until the lockfile is regenerated. `Dockerfile.render` already installs with `npm install`. The plain `Dockerfile` runs `npm ci` and hits the same lockfile error.
 
-`npm ci` in `backend/` currently fails: the lockfile is out of date (`magicast@0.3.5` is missing). Use `npm install` until the lockfile is regenerated.
+The API listens on the port in `PORT`. `GET /` returns `Orbit API`. On the live service that response is [https://orbit-saas-api.onrender.com](https://orbit-saas-api.onrender.com).
+
+Fill `JWT_SECRET` and `JWT_REFRESH_SECRET` (at least 32 characters each). Point `DATABASE_URL` at the Compose database. The database name in `.env.example` is `saas_landing_page`, which matches `docker-compose.yml`. `npx prisma generate` reads `DATABASE_URL`, so `.env` has to exist first.
+
+The Render image is separate from Compose. It builds from this directory and bundles Postgres for the `orbit_saas` database:
+
+```bash
+docker build -f Dockerfile.render -t orbit-api .
+```
 
 | Script | What it does |
 | --- | --- |
@@ -122,15 +125,14 @@ The API listens on [http://localhost:4000](http://localhost:4000). Fill `JWT_SEC
 | `npm test` | Unit tests (Vitest) |
 | `npm run test:e2e` | End-to-end tests |
 
-### Deploy settings to update by hand
+### Deploy
 
-**Netlify.** `netlify.toml` now lives in `frontend/` and no longer sets `base`. In the site’s build settings, set **Base directory** to `frontend`. Build command: `npm ci && npm run build`. Publish directory: `.next` (the Next.js plugin may override this). Node 22.
+No dashboard changes are required for the current services.
 
-If the UI base directory is still `Client`, or still empty from when the root `netlify.toml` set `base = "Client"`, the next build will not find this app until it is `frontend`.
+- **Netlify** reads the root `netlify.toml`: base directory `Client`, command `npm ci && npm run build`, publish `Client/.next`, Node 22. The live site is [https://orbit-saas-162.netlify.app](https://orbit-saas-162.netlify.app).
+- **Render** is a Docker web service with an empty Root Directory, so it builds from the repository root. `render.yaml` sets the Dockerfile to `./Server/Dockerfile.render` and the Docker context to `./Server`. The container listens on `PORT` and serves `GET /health` at [https://orbit-saas-api.onrender.com/health](https://orbit-saas-api.onrender.com/health).
 
-**Render.** `render.yaml` stays at the repo root. Its Dockerfile path is `./backend/Dockerfile.render` and the Docker context is `./backend`. Sync the Blueprint so an existing service picks up those paths. If the service was created by hand with root directory or Docker context `Server`, change that to `backend` and the Dockerfile path to `./backend/Dockerfile.render`.
-
-`CLIENT_ORIGIN` is declared with `sync: false` and has no value in the Blueprint. Set it in the Render dashboard to the frontend origin (local default is `http://localhost:3000`). The container image still uses its own `WORKDIR /app/backend`; that path is inside the image, not the Git root.
+Set `CLIENT_ORIGIN` on the Render service to [https://orbit-saas-162.netlify.app](https://orbit-saas-162.netlify.app) so the API accepts browser requests from the live site.
 
 ## Author
 
@@ -138,4 +140,4 @@ If the UI base directory is still `Client`, or still empty from when the root `n
 
 ## License
 
-This repository has no `LICENSE` file. The API package (`backend/package.json`) is marked `UNLICENSED`. All rights reserved by the author.
+This repository has no `LICENSE` file. The API package is marked `UNLICENSED`.

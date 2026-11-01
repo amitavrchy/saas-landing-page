@@ -1,7 +1,7 @@
-# Read when the Netlify site base directory is `frontend`.
 [build]
+  base = "Client"
   command = "npm ci && npm run build"
-  publish = ".next"
+  publish = "Client/.next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
